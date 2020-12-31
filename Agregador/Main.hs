@@ -9,4 +9,4 @@ main = do
         then
         --tests
         else
-            putStrLn "TODO"
+            
