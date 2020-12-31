@@ -1,0 +1,6 @@
+HaskellIndexador
+output.txt
+tmp
+indexador/*.o
+indexador/*.hi
+detector/bin
