@@ -1,4 +1,5 @@
 import System.IO
+import System.Environment
 
 main :: IO ()
 main = do
@@ -11,7 +12,7 @@ main = do
         --tests
         else do
             metric <- getLine 
-            if not(null(words metric)) && even(length(words metric)) && (verifyMetric (words metric) /= "") 
+            if not(null(words metric)) && even(length(words metric)) && (not $ null $ verifyMetric $ words metric)
                 then if head (words metric) == "sum" then sumFunction [(createParameter (words metric),0)] 
                         else (if head (words metric) == "average" then averageFunction [(createParameter(words metric), 0, 0)] else maximumFunction [(createParameter (words metric),0)])
                 else do 
@@ -37,20 +38,21 @@ sumFunction :: [([Int], Int)] -> IO()
 sumFunction [] = return()
 sumFunction lista@(x:xs) = do
     input <- getLine
+    putStrLn input
     --lista <- parseInput input    -- isto era suposto ser usado mas não funciona pk a função não é IO
 
     -- fst(last lista) corresponde aos numeros das colunas de comparação - metrica
  
     
     -- garantir que o input tem colunas suficientes
-    Control.Monad.when (length (parseInput input) < last (fst(last lista))) $ putStr "erro"
+    --Control.Monad.when (length (parseInput input) < last (fst(last lista))) $ putStr "erro"
 
     -- aplicação da soma: se já existe o grupo vai substituir se nao cria novo par
-    if verifyIfPatternExists (parseInput input) (map fst (init lista)) (fst (last lista)) then do 
+    --if verifyIfPatternExists (parseInput input) (map fst (init lista)) (fst (last lista)) then do 
 
-                                                                                            else do print $ parseInput input !! head (fst (last lista))
-                                                                                                    sumFunction $ (parseInput input, parseInput input !! head (fst (last lista))) : lista  
-                                                                                                    
+                                                                                           -- else do print $ parseInput input !! head (fst (last lista))
+--sumFunction $ (parseInput input, parseInput input !! head (fst (last lista))) : lista  
+                                                                                               
 
 
 
