@@ -13,8 +13,11 @@ main = do
         else do
             metric <- getLine 
             if not(null(words metric)) && even(length(words metric)) && (not $ null $ verifyMetric $ words metric)
-                then if head (words metric) == "sum" then sumFunction [(createParameter (words metric),0)] 
-                        else (if head (words metric) == "average" then averageFunction [(createParameter(words metric), 0, 0)] else maximumFunction [(createParameter (words metric),0)])
+                then if head (words metric) == "sum" 
+                    then sumFunction [(createParameter (words metric),0)] 
+                        else (if head (words metric) == "average" 
+                                then averageFunction [(createParameter(words metric), 0, 0)]
+                                else maximumFunction [(createParameter(words metric),0)])
                 else do 
                     putStr "Parâmetros da métrica incorretos."
                     -- meter este else num ciclo while enquanto estiver mal formado?
@@ -25,7 +28,8 @@ main = do
 verifyMetric :: [String] -> String
 verifyMetric [] = ""
 verifyMetric lista@(x:xs) = if (even (length lista) && x `elem` ["sum", "average", "maximum", "groupby"]) || (odd (length lista) && read x `elem` [0..])
-                                then verifyMetric xs else ""
+                                then verifyMetric xs 
+                                else ""
 
 
 --organizar só com os numeros das colunas para depois dar como parametro nas funcoes sum etc
@@ -35,11 +39,11 @@ createParameter xs = [read x - 1 | x <- xs, y <- [0..length xs - 1], odd y]
 
 
 sumFunction :: [([Int], Int)] -> IO()
-sumFunction [] = return()
+sumFunction [] = return ()
 sumFunction lista@(x:xs) = do
     input <- getLine
-    putStrLn input
-    --lista <- parseInput input    -- isto era suposto ser usado mas não funciona pk a função não é IO
+    let lista = parseInput input    -- isto era suposto ser usado mas não funciona pk a função não é IO
+    putStrLn input--apagar
 
     -- fst(last lista) corresponde aos numeros das colunas de comparação - metrica
  
@@ -71,7 +75,7 @@ parseInput input = map read $ words input
 
 
 verifyIfPatternExists :: [Int] -> [[Int]] -> [Int] -> Bool
-verifyIfPatternExists currentInput [] base = False
+verifyIfPatternExists _ [] _ = False
 verifyIfPatternExists currentInput (x:xs) base = (foldl (\y acc -> (currentInput !! y == x !! y) && acc) True base) || verifyIfPatternExists currentInput xs base
 
             
