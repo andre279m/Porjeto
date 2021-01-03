@@ -16,7 +16,8 @@ import java.util.stream.Stream;
 
 public class Main {
 	public static void main(String[] args) throws IOException{
-		Stream<String> lines = java.nio.file.Files.lines(Paths.get(args[0]));
+		Stream<String> lines = java.nio.file.Files.lines(Paths.get(args[1]));
+		lines.forEach(line -> line.replace(",", " "));
 		lines.forEach(System.out::println);
 		lines.close();
 	}
