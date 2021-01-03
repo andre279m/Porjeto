@@ -8,11 +8,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-/*
-args[0] = metricas.txt
-args[1] = dataset.csv
-args[2] = Agregador/Main
-*/
+/**
+ * args[0] = metricas.txt
+ * args[1] = dataset.csv
+ * args[2] = Agregador/Main
+ */
+
 public class Main {
 	public static void main(String[] args) throws IOException{
 		java.nio.file.Files.lines(Paths.get(args[0]));
