@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 /**
  * args[0] = metricas.txt
- * args[1] = dataset.csv
+ * args[1] = dataset.csvn
  * args[2] = Agregador/Main
  */
 
