@@ -13,23 +13,23 @@ main = do
         --tests
         else do
             metric <- getLine 
-            if not(Prelude.null(words metric)) && even(length(words metric)) && (verifyMetric $ words metric)
-                then if head (words metric) == "sum" 
-                    then sumFunction (createParameter (words metric)) M.empty
-                    else if head (words metric) == "average"
-                            then averageFunction (createParameter (words metric)) M.empty
-                            else maximumFunction (createParameter (words metric)) M.empty
-                else putStr "Parâmetros da métrica incorretos."
+            --if not(Prelude.null(words metric)) && even(length(words metric)) && (verifyMetric $ words metric)then
+            if head (words metric) == "sum" 
+                then sumFunction (createParameter (words metric)) M.empty
+                else if head (words metric) == "average"
+                        then averageFunction (createParameter (words metric)) M.empty
+                        else maximumFunction (createParameter (words metric)) M.empty
+              --  else putStr "Parâmetros da métrica incorretos."
                     -- meter este else num ciclo while enquanto estiver mal formado?
 
 
 
 --verificar se a métrica está be construida
-verifyMetric :: [String] -> Bool
+{-verifyMetric :: [String] -> Bool
 verifyMetric [] = True
 verifyMetric lista@(x:xs) = if (even (length lista) && x `elem` ["sum", "average", "maximum", "groupby"]) || (odd (length lista) && read x `elem` [0..])
                                 then verifyMetric xs 
-                                else False
+                                else False-}
 
 
 --organizar só com os numeros das colunas para depois dar como parametro nas funcoes sum etc
