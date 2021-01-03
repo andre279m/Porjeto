@@ -37,14 +37,14 @@ createParameter :: [String] -> [Int]
 createParameter xs = [read (xs !! y)| y <- [0..length xs], odd y]
 
 
-sumFunction :: [Int] -> M.Map [Int] Int -> IO() --por o result em float
+sumFunction :: [Int] -> M.Map [Int] Float -> IO()
 sumFunction metric mapa = do
     input <- getLine
     if (input == "exit")
     then return ()
     else do
         let groups = parseInput input
-            value = groups !! head metric
+            value = fromIntegral (groups !! head metric) :: Float
             key = getKey metric groups
             updatedMap = M.insertWith (+) key value mapa
             result = M.findWithDefault 0 key updatedMap
@@ -52,30 +52,30 @@ sumFunction metric mapa = do
         sumFunction metric updatedMap
 
 
-averageFunction :: [Int] -> M.Map [Int] (Int,Int) -> IO() --por o result em float
+averageFunction :: [Int] -> M.Map [Int] (Float,Float) -> IO()
 averageFunction metric mapa = do
     input <- getLine
     if (input == "exit")
     then return ()
     else do
         let groups = parseInput input
-            value =(1, groups !! head metric)
+            value =(1.0,fromIntegral (groups !! head metric) :: Float)
             key = getKey metric groups
             updatedMap = M.insertWith (plusPair) key value mapa
             (count,soma) = M.findWithDefault (0,0) key updatedMap
-            result = soma `div` count
+            result = soma / count
         putStrLn $ show result
         averageFunction metric updatedMap
 
 
-maximumFunction :: [Int] -> M.Map [Int] Int -> IO() --por o result em float
+maximumFunction :: [Int] -> M.Map [Int] Float -> IO()
 maximumFunction metric mapa = do
     input <- getLine
     if (input == "exit")
     then return ()
     else do
         let groups = parseInput input
-            value = groups !! head metric
+            value = fromIntegral (groups !! head metric) :: Float
             key = getKey metric groups
             updatedMap = M.insertWith (max) key value mapa
             result = M.findWithDefault 0 key updatedMap
@@ -91,5 +91,5 @@ getKey :: [Int] -> [Int] -> [Int]
 getKey metric xs = [xs !! y | y <- tail metric]
 
 
-plusPair :: (Int,Int) -> (Int,Int) -> (Int,Int)
+plusPair :: (Float,Float) -> (Float,Float) -> (Float,Float)
 plusPair (x,y) (w,z) = (x + w, y + z)
