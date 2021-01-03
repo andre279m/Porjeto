@@ -6,7 +6,9 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * args[0] = metricas.txt
@@ -16,12 +18,28 @@ import java.util.stream.Stream;
 
 public class Main {
 	public static void main(String[] args) throws IOException{
-		Stream<String> lines = java.nio.file.Files.lines(Paths.get(args[1]));
-		lines.forEach (line -> {
-			System.out.println(line.replace(",", " "));
+		Stream<String> metrics = java.nio.file.Files.lines(Paths.get(args[0]));
+		Stream<String> data = java.nio.file.Files.lines(Paths.get(args[1]));
+		ProcessWrapper processor1 = new ProcessWrapper(args[2]);
+		Map<Long,String> outputTable = new HashMap<>();	
+		metrics.forEach (metric -> {
+			processor1.writeLine(metric);
+			AtomicLong counter = new AtomicLong(0);
+			data.forEach (line -> {
+				processor1.writeLine(line.replace(",", " "));
+				String outputPorMetrica = processor1.readLine();
+				if (!outputTable.containsKey(counter.get()))
+  					outputTable.put(counter.get(),outputPorMetrica);
+				else
+  					outputTable.replace(counter.get(), outputTable.get(counter.get())+ "," + outputPorMetrica);
+				counter.getAndIncrement();
+			});
 		});
-		//lines.forEach(System.out::println);
-		lines.close();
+		for(String lines : outputTable.values()){
+			System.out.println(lines);
+		}
+		data.close();
+		metrics.close();
 
 		
 	}
