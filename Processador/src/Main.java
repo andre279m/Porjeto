@@ -10,14 +10,15 @@ import java.util.stream.Stream;
 
 /**
  * args[0] = metricas.txt
- * args[1] = dataset.csvn
+ * args[1] = dataset.csv
  * args[2] = Agregador/Main
  */
 
 public class Main {
 	public static void main(String[] args) throws IOException{
-		java.nio.file.Files.lines(Paths.get(args[0]));
-		System.out.println("TODO");
+		Stream<String> lines = java.nio.file.Files.lines(Paths.get(args[0]));
+		lines.forEach(System.out::println);
+		lines.close();
 	}
 	
 }
