@@ -2,7 +2,9 @@ module Functions(
 createParameter,
 sumFunction,
 averageFunction,
-maximumFunction
+maximumFunction,
+parseInput,
+plusPair
 ) where
 
 import Data.Map as M
