@@ -87,17 +87,20 @@ getKey metric xs = [xs !! y | y <- tail metric]
 plusPair :: (Float,Float) -> (Float,Float) -> (Float,Float)
 plusPair (x,y) (w,z) = (x + w, y + z)
 
+
 testParameter :: IO()
 testParameter = quickCheck prop_parameter
 
 prop_parameter :: [String] -> Property
 prop_parameter xs = not (Prelude.null xs) && even (length xs) ==> length (createParameter xs) == length xs `div` 2
 
+
 testParseInput :: IO()
 testParseInput = quickCheck prop_parseInput
 
 prop_parseInput :: String -> Property
 prop_parseInput xs = not (Prelude.null xs) ==> length xs >= length (parseInput xs)
+
 
 testPlusPair :: IO()
 testPlusPair = quickCheck aux_plusPair
