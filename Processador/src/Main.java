@@ -18,8 +18,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class Main {
 	public static void main(String[] args) throws IOException{
-		//Stream<String> metrics = java.nio.file.Files.lines(Paths.get(args[0]));
 		Map<Long,String> outputTable = new HashMap<>();	
+
 		java.nio.file.Files.lines(Paths.get(args[0])).forEach (metric -> {
 			ProcessWrapper processor1 = new ProcessWrapper(args[2]);
 			processor1.writeLine(metric);
@@ -39,6 +39,7 @@ public class Main {
 			}
 			processor1.kill();
 		});
+		
 		for(String lines : outputTable.values()){
 			System.out.println(lines);
 		}
