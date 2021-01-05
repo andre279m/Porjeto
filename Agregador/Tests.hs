@@ -3,7 +3,7 @@ module Tests
 ) where
 
 import Test.QuickCheck
-import AuxFunctions
+import Functions
 
 testParameter = quickCheck propParameter
 

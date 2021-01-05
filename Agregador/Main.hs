@@ -1,7 +1,7 @@
 import System.IO
 import System.Environment
 import Data.Map as M
-import AuxFunctions
+import Functions
 import Tests
 
 main :: IO ()

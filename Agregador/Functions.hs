@@ -1,5 +1,5 @@
-module AuxFunctions
-(createParameter,
+module Functions(
+createParameter,
 sumFunction,
 averageFunction,
 maximumFunction
