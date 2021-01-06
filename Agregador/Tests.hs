@@ -1,8 +1,8 @@
 module Tests (
-    testParameter,
-    testParseInput,
-    testPlusPair
-    ) where
+testParameter,
+testParseInput,
+testPlusPair
+) where
 
 import Test.QuickCheck
 import Functions
