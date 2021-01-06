@@ -2,7 +2,6 @@ module Main(
 main
 )where
 
-import Test.QuickCheck
 import System.IO
 import System.Environment
 import Data.Map as M
