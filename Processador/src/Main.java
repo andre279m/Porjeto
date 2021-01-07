@@ -11,12 +11,18 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * args[0] = metricas.txt
- * args[1] = dataset.csv
- * args[2] = Agregador/Main
+ * Class that works with given files to simulate fraudulent actions
  */
-
 public class Main {
+
+	/**
+	 * Function that receives files and analyzes it 
+	 * @param args paths to files
+	 * 					args[0] = metricas.txt 		a file with metrics that can be used to find fraudulent actions
+	 * 					args[1] = dataset.csv 		a file with the data to analyze composed by collumns (.CSV)
+	 * 					args[2] = Agregador/Main	the path to the binary file
+	 * @requires every line in args[0] file requires that the first word should be a metric ("sum","average","maximum")
+	 */
 	public static void main(String[] args) throws IOException{
 		Map<Long,String> outputTable = new HashMap<>();	
 
