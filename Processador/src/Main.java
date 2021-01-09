@@ -22,21 +22,20 @@ public class Main {
 	 * @requires every line in args[0] file requires that each line must have an even number words:
 	 * 			 the first word should be a metric ("sum","average","maximum")
 	 * 			 and all the other odd words should be "groupby",
-	 * 			 the even words should be int type
-	 * 			 
+	 * 			 the even words should be int type 
 	 */
 	public static void main(String[] args) throws IOException{
 		Map<Long,String> outputTable = new HashMap<>();	
-		Stream<String> result = java.nio.file.Files.lines(Paths.get(args[0]));
+		Stream<String> metrics = java.nio.file.Files.lines(Paths.get(args[0]));
 		
-		result.forEach (metric -> {
-			ProcessWrapper processor1 = new ProcessWrapper(args[2]);
-			processor1.writeLine(metric);
+		metrics.forEach (metric -> {
+			ProcessWrapper processor = new ProcessWrapper(args[2]);
+			processor.writeLine(metric);
 			AtomicLong counter = new AtomicLong(0);
 			try {
 				java.nio.file.Files.lines(Paths.get(args[1])).forEach(line -> {
-					processor1.writeLine(line.replace(",", " "));
-					String outputPorMetrica = processor1.readLine();
+					processor.writeLine(line.replace(",", " "));
+					String outputPorMetrica = processor.readLine();
 					if (!outputTable.containsKey(counter.get()))
 						outputTable.put(counter.get(), outputPorMetrica);
 					else
@@ -46,9 +45,9 @@ public class Main {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			processor1.kill();
+			processor.kill();
 		});
-		result.close();
+		metrics.close();
 
 		for(String lines : outputTable.values()){
 			System.out.println(lines);

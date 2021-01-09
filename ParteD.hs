@@ -40,12 +40,16 @@ reverse' (x:xs) = reverse' xs ++ [x] -- reverse Eq 2
 -- caso (x:xs):
 
 -- maximum' (x:xs) = -- abbreviation
--- maximum' [x] ++ xs = -- maximum' Eq 1
--- maximum [x] `max` maximum xs = -- given law
+-- maximum' [x] ++ xs = -- given law
+-- maximum [x] `max` maximum xs = -- abbreviation
+-- maximum’ x : [ ] `max` maximum xs = -- maximum' Eq 1
+-- maximum’’ [ ] x `max` maximum xs = -- maximum'' Eq 1 
 -- x `max` maximum xs
 
--- maximum ' (reverse' (x:xs)) = -- maximum' Eq 1
--- maximum' (reverse' xs ++ [x]) = -- reverse' Eq 2
--- maximum' reverse' xs `max` maximum [x] = -- given law
+-- maximum' (reverse' (x:xs)) = -- reverse' Eq 2
+-- maximum' (reverse' xs ++ [x]) = -- given law
+-- maximum' reverse' xs `max` maximum [x] = -- abbreviation
+-- maximum’ reverse' xs `max` maximum’ x : [ ] = -- maximum' Eq 1
+-- maximum’’ reverse' xs `max` maximum’’ [ ] x = -- maximum'' Eq 1 
 -- maximum' reverse' xs `max` x = -- IH
 -- x `max` maximum' xs 
